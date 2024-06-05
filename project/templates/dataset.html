@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Columns and Algorithm</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Select Columns for {{ dataset_name }}</h1>
+    <p class="description">{{ description }}</p>
+    <form method="post">
+        <h2>Columns:</h2>
+        {% for column in columns %}
+        <input type="checkbox" id="{{ column }}" name="columns" value="{{ column }}">
+        <label for="{{ column }}">{{ column }}</label><br>
+        {% endfor %}
+        <h2>Select Algorithm:</h2>
+        <select name="algorithm">
+            {% for key, value in algorithms.items() %}
+            <option value="{{ key }}">{{ key }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

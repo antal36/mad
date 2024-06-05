@@ -1,4 +1,4 @@
-age,gender,chestpain,restingBP,serumcholestrol,fastingbloodsugar,restingrelectro,maxheartrate,exerciseangia,oldpeak,slope,noofmajorvessels,target
+Age,Gender,Chest_pain,Resting_blood_pressure,Serum_cholestrol,Fasting_blood_sugar,Resting_electrocardiomgram,Max_heart_rate,Exercise_angina,Oldpeak,Slope,Num_of_major_vessels,Diagnosis
 53,1,2,171,0,0,1,147,0,5.3,3,3,1
 40,1,0,94,229,0,1,115,0,3.7,1,1,0
 49,1,2,133,142,0,0,202,1,5.0,1,0,0

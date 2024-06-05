@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Algorithm Performance</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Performance of {{ algorithm_name }}</h1>
+    <p class="performance">{{ performance }}</p>
+    <a class="back-link" href="{{ url_for('index') }}">Back to datasets</a>
+</body>
+</html>

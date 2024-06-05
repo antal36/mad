@@ -1,4 +1,4 @@
-Age,Gender,Heart rate,Systolic blood pressure,Diastolic blood pressure,Blood sugar,CK-MB,Troponin,Result
+Age,Gender,Heart_rate,Systolic_blood_pressure,Diastolic_blood_pressure,Blood_sugar,Creatine_Kinase,Troponin,Diagnosis
 64,1,66,160,83,160.0,1.8,0.012,0
 21,1,94,98,46,296.0,6.75,1.06,1
 55,1,64,160,77,270.0,1.99,0.003,0
