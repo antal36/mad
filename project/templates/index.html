@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dataset Selection</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Select a Dataset</h1>
+    <ul>
+        {% for dataset, description in datasets.items() %}
+        <li>
+            <a href="{{ url_for('dataset', dataset_name=dataset) }}">{{ dataset }}</a>
+            <p class="description">{{ description }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
