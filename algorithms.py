@@ -10,10 +10,10 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 
 # Load datasets
-df1 = pd.read_csv("C:/Users/varga/OneDrive/Management Dat/projekt/mad/project/data/Cardiovascular_Disease_Dataset_final.csv")
-df2 = pd.read_csv("C:/Users/varga/OneDrive/Management Dat/projekt/mad/project/data/dataset_37_diabetes_final.csv")
-df3 = pd.read_csv("C:/Users/varga/OneDrive/Management Dat/projekt/mad/project/data/diabetes_classification_final.csv")
-df4 = pd.read_csv("C:/Users/varga/OneDrive/Management Dat/projekt/mad/project/data/Medicaldataset_final.csv")
+df1 = pd.read_csv("C:/Users/antal/Desktop/matfyz/MAD/mad/project/data/Cardiovascular_Disease_Dataset_final.csv")
+df2 = pd.read_csv("C:/Users/antal/Desktop/matfyz/MAD/mad/project/data/dataset_37_diabetes_final.csv")
+df3 = pd.read_csv("C:/Users/antal/Desktop/matfyz/MAD/mad/project/data/diabetes_classification_final.csv")
+df4 = pd.read_csv("C:/Users/antal/Desktop/matfyz/MAD/mad/project/data/Medicaldataset_final.csv")
 
 # Define datasets
 datasets = {
@@ -34,7 +34,6 @@ def get_combination(lst):
     yield from combination
 
 def evaluate_algorithm(algorithm):
-    print(algorithm)
     algorithm_name = algorithm.__name__
     result[algorithm_name] = {}
     
@@ -45,7 +44,8 @@ def evaluate_algorithm(algorithm):
         result[algorithm_name][dataset_name] = {}
 
         for combination in get_combination(columns[:-1]):
-            print(combination)
+            combination = sorted(combination)
+            print(algorithm_name, combination)
             X = df.loc[:,combination]    
             y = df.iloc[:, -1]
 
@@ -61,7 +61,6 @@ def evaluate_algorithm(algorithm):
 
 for algorithm in algorithms:
     evaluate_algorithm(algorithm)
-
 
 json_object = js.dumps(result, indent=4)
 with open("results.json", "w") as outfile:

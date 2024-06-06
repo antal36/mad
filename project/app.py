@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import pandas as pd
+import json
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
@@ -42,6 +43,9 @@ datasets = {
 } 
     } 
 
+with open("C:/Users/antal/Desktop/matfyz/MAD/mad/results.json", 'r') as file:
+    performance_metric = json.load(file)
+
 algorithms = {
     "Logistic Regression": LogisticRegression,
     "Random Forest": RandomForestClassifier,
@@ -68,13 +72,40 @@ def dataset(dataset_name):
 def algorithm(dataset_name, algorithm_name, columns):
     dataset = datasets[dataset_name]
     selected_columns = columns.split(',')
-    performance = get_model_performance(dataset, selected_columns, algorithm_name)
+    performance = get_model_performance(dataset_name, selected_columns, algorithm_name)
     return render_template('algorithm.html', performance=performance, algorithm_name=algorithm_name)
 
 def get_model_performance(dataset, selected_columns, algorithm_name):
-    # Placeholder for model performance function
-    # Implement your model training and evaluation logic here
-    return "Model performance metrics"
+    print(selected_columns)
+    columns_key = ', '.join(sorted(selected_columns))
+    name_algo = get_right_name_algo(algorithm_name)
+    name_data = get_right_name_data(dataset)
+    performance = performance_metric[name_algo][name_data].get(columns_key, "No data available")
+    return performance
+
+def get_right_name_algo(name):
+    match name:
+        case "Logistic Regression":
+            return "LogisticRegression"
+        case "Random Forest":
+            return "RandomForestClassifier"
+        case "Naive Bayes":
+            return "GaussianNB"
+        case "Decision Tree":
+            return "DecisionTreeClassifier"
+        case "K nearest neighbours":
+            return "KNeighborsClassifier"
+
+def get_right_name_data(name):
+    match name:
+        case "Cardiovascular diseases (India)":
+            return "Cardiovascular_Disease_Dataset"
+        case "Cardiovascular diseases (Iraq)":
+            return "Medical_Dataset"
+        case "Diabetes (America)":
+            return "Diabetes_Dataset_37"
+        case "Diabetes (Pima Indians)":
+            return "Diabetes_Classification"
 
 
 if __name__ == '__main__':
