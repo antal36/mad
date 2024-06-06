@@ -10,6 +10,7 @@ df2.to_csv("C:/Users/antal/Desktop/matfyz/MAD/mad/dataset_37_diabetes_final.csv"
 
 df3 = pd.read_csv("C:/Users/antal/Desktop/matfyz/MAD/mad/Cardiovascular_Disease_Dataset/Cardiovascular_Disease_Dataset/Cardiovascular_Disease_Dataset.csv")
 df3.drop('patientid', axis="columns", inplace=True)
+df3["Gender"] = df3["Gender"].map({"male":1, "female":0})
 df3.to_csv("C:/Users/antal/Desktop/matfyz/MAD/mad/Cardiovascular_Disease_Dataset/Cardiovascular_Disease_Dataset/Cardiovascular_Disease_Dataset_final.csv", index=False)
 
 df4 = pd.read_csv("C:/Users/antal/Desktop/matfyz/MAD/mad/informatics-edu-diabetes-prediction/informatics-edu-diabetes-prediction/data/diabetes_classification.csv")
