@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Algorithm Comparison</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Algorithm', 'Performance'],
+                ['{{ comparison_data.algorithm_1 }}', {{ comparison_data.performance_1 * 100 }}],
+                ['{{ comparison_data.algorithm_2 }}', {{ comparison_data.performance_2 * 100 }}]
+            ]);
+
+            var options = {
+                hAxis: {
+                    title: 'Algorithms being compared',
+                    minValue: 0
+                },
+                vAxis: {
+                    title: 'Performance [ % ]',
+                    minValue: 0,
+                    maxValue: 100
+                },
+                legend: 'none'
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('barchart_values'));
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Comparison of {{ comparison_data.algorithm_1 }} and {{ comparison_data.algorithm_2 }}</h1>
+        <p class="description">This chart illustrates the performance comparison between {{ comparison_data.algorithm_1 }} and {{ comparison_data.algorithm_2 }} algorithms on the selected dataset.</p>
+        <div class="chart-container">
+            <div id="barchart_values" style="width: 700px; height: 500px;"></div>
+        </div>
+        <a href="{{ url_for('index') }}" class="back-link">Back to datasets</a>
+    </div>
+</body>
+</html>
