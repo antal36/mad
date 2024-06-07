@@ -8,10 +8,12 @@ from sklearn.metrics import accuracy_score
 from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.base import BaseEstimator
+from typing import Any, Union
 
 app = Flask(__name__)
 
-datasets = {
+datasets: dict[str, dict[str, Any]] = {
     "Cardiovascular diseases (India)": {
         "data": pd.read_csv("C:/Users/antal/Desktop/matfyz/MAD/mad/project/data/Cardiovascular_Disease_Dataset_final.csv"),
         "description": """The source of the data: https://data.mendeley.com/datasets/dzz48mvjht/1 \n
@@ -46,7 +48,7 @@ datasets = {
 with open("C:/Users/antal/Desktop/matfyz/MAD/mad/results.json", 'r') as file:
     performance_metric = json.load(file)
 
-algorithms = {
+algorithms: dict[str, BaseEstimator] = {
     "Logistic Regression": LogisticRegression,
     "Random Forest": RandomForestClassifier,
     "Naive Bayes": GaussianNB,
@@ -75,15 +77,14 @@ def algorithm(dataset_name, algorithm_name, columns):
     performance = get_model_performance(dataset_name, selected_columns, algorithm_name)
     return render_template('algorithm.html', performance=performance, algorithm_name=algorithm_name)
 
-def get_model_performance(dataset, selected_columns, algorithm_name):
-    print(selected_columns)
-    columns_key = ', '.join(sorted(selected_columns))
-    name_algo = get_right_name_algo(algorithm_name)
-    name_data = get_right_name_data(dataset)
+def get_model_performance(dataset, selected_columns, algorithm_name) -> Union[float, str]:
+    columns_key: str = ', '.join(sorted(selected_columns))
+    name_algo: str = get_right_name_algo(algorithm_name)
+    name_data: str = get_right_name_data(dataset)
     performance = performance_metric[name_algo][name_data].get(columns_key, "No data available")
     return performance
 
-def get_right_name_algo(name):
+def get_right_name_algo(name: str) -> str:
     match name:
         case "Logistic Regression":
             return "LogisticRegression"
@@ -96,7 +97,7 @@ def get_right_name_algo(name):
         case "K nearest neighbours":
             return "KNeighborsClassifier"
 
-def get_right_name_data(name):
+def get_right_name_data(name: str) -> str:
     match name:
         case "Cardiovascular diseases (India)":
             return "Cardiovascular_Disease_Dataset"

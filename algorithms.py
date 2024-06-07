@@ -8,38 +8,42 @@ from sklearn.metrics import accuracy_score
 from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.base import BaseEstimator
+from typing import Iterator
 
 # Load datasets
-df1 = pd.read_csv("C:/Users/antal/Desktop/matfyz/MAD/mad/project/data/Cardiovascular_Disease_Dataset_final.csv")
-df2 = pd.read_csv("C:/Users/antal/Desktop/matfyz/MAD/mad/project/data/dataset_37_diabetes_final.csv")
-df3 = pd.read_csv("C:/Users/antal/Desktop/matfyz/MAD/mad/project/data/diabetes_classification_final.csv")
-df4 = pd.read_csv("C:/Users/antal/Desktop/matfyz/MAD/mad/project/data/Medicaldataset_final.csv")
+df1: pd.DataFrame = pd.read_csv("C:/Users/antal/Desktop/matfyz/MAD/mad/project/data/Cardiovascular_Disease_Dataset_final.csv")
+df2: pd.DataFrame = pd.read_csv("C:/Users/antal/Desktop/matfyz/MAD/mad/project/data/dataset_37_diabetes_final.csv")
+df3: pd.DataFrame = pd.read_csv("C:/Users/antal/Desktop/matfyz/MAD/mad/project/data/diabetes_classification_final.csv")
+df4: pd.DataFrame = pd.read_csv("C:/Users/antal/Desktop/matfyz/MAD/mad/project/data/Medicaldataset_final.csv")
 
 # Define datasets
-datasets = {
+datasets: dict[str, pd.DataFrame] = {
     "Cardiovascular_Disease_Dataset": df1,
     "Diabetes_Dataset_37": df2,
     "Diabetes_Classification": df3,
     "Medical_Dataset": df4
 }
 
-algorithms = [LogisticRegression, RandomForestClassifier, GaussianNB, DecisionTreeClassifier, KNeighborsClassifier]
+algorithms: list[BaseEstimator] = [LogisticRegression, RandomForestClassifier, GaussianNB, DecisionTreeClassifier, KNeighborsClassifier]
 
-result = {}
+result: dict[str, dict[str, dict[str, float]]] = {}
 
-def get_combination(lst):
-    combination = []
+def get_combination(lst: list[str]) -> Iterator[tuple[str]]:
+    combination: list[tuple[str]] = []
     for r in range(1, len(lst) + 1):
         combination.extend(itertools.combinations(lst,r))
     yield from combination
 
-def evaluate_algorithm(algorithm):
-    algorithm_name = algorithm.__name__
+def evaluate_algorithm(algorithm) -> None:
+    algorithm_name: str = algorithm.__name__
     result[algorithm_name] = {}
     
+    dataset_name: str
+    df: pd.DataFrame
     for dataset_name, df in datasets.items():
 
-        columns = list(df.columns)
+        columns: list[str] = list(df.columns)
 
         result[algorithm_name][dataset_name] = {}
 
@@ -51,11 +55,11 @@ def evaluate_algorithm(algorithm):
 
             X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
             
-            model = algorithm(max_iter=10000) if algorithm == LogisticRegression else algorithm()
+            model: BaseEstimator = algorithm(max_iter=10000) if algorithm == LogisticRegression else algorithm()
             model.fit(X_train, y_train)
 
             y_pred = model.predict(X_test)
-            accuracy = accuracy_score(y_test, y_pred)
+            accuracy: float = accuracy_score(y_test, y_pred)
             
             result[algorithm_name][dataset_name][", ".join(combination)] = accuracy
 
