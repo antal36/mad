@@ -1,10 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 import pandas as pd
 import json
-from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score
 from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
@@ -42,8 +40,8 @@ datasets: dict[str, dict[str, Any]] = {
         The objective of the dataset is to diagnostically predict whether a patient has diabetes based on certain diagnostic measurements.
         All patients are females at least 21 years old of Pima Indian heritage. The dataset consists of several medical predictor variables and one target variable, Outcome.
         Predictor variables include the number of pregnancies, BMI, insulin level, age, and other relevant medical measurements."""
+    }
 } 
-    } 
 
 with open("C:/Users/antal/Desktop/matfyz/MAD/mad/results.json", 'r') as file:
     performance_metric = json.load(file)
@@ -58,10 +56,13 @@ algorithms: dict[str, BaseEstimator] = {
 
 @app.route('/')
 def index():
+    """Render the index page with dataset descriptions."""
     return render_template('index.html', datasets={name: data["description"] for name, data in datasets.items()})
 
 @app.route('/dataset/<dataset_name>', methods=['GET', 'POST'])
 def dataset(dataset_name):
+    """Render the dataset page and handle column selection and algorithm choice."""
+
     dataset = datasets[dataset_name]["data"]
     description = datasets[dataset_name]["description"]
     if request.method == 'POST':
@@ -71,13 +72,16 @@ def dataset(dataset_name):
     return render_template('dataset.html', dataset_name=dataset_name, columns=dataset.columns, algorithms=algorithms, description=description)
 
 @app.route('/algorithm/<dataset_name>/<algorithm_name>/<columns>')
-def algorithm(dataset_name, algorithm_name, columns):
-    dataset = datasets[dataset_name]
+def algorithm(dataset_name: str, algorithm_name: str, columns: str):
+    """Render the algorithm performance page."""
+
     selected_columns = columns.split(',')
     performance = get_model_performance(dataset_name, selected_columns, algorithm_name)
     return render_template('algorithm.html', performance=performance, algorithm_name=algorithm_name)
 
-def get_model_performance(dataset, selected_columns, algorithm_name) -> Union[float, str]:
+def get_model_performance(dataset: str, selected_columns: list[str], algorithm_name: str) -> Union[float, str]:
+    """Get the performance of the selected model on the selected dataset and columns."""
+
     columns_key: str = ', '.join(sorted(selected_columns))
     name_algo: str = get_right_name_algo(algorithm_name)
     name_data: str = get_right_name_data(dataset)
@@ -85,6 +89,8 @@ def get_model_performance(dataset, selected_columns, algorithm_name) -> Union[fl
     return performance
 
 def get_right_name_algo(name: str) -> str:
+    """Convert user-friendly algorithm name to the corresponding class name."""
+
     match name:
         case "Logistic Regression":
             return "LogisticRegression"
@@ -98,6 +104,8 @@ def get_right_name_algo(name: str) -> str:
             return "KNeighborsClassifier"
 
 def get_right_name_data(name: str) -> str:
+    """Convert user-friendly dataset name to the corresponding key in performance metrics."""
+    
     match name:
         case "Cardiovascular diseases (India)":
             return "Cardiovascular_Disease_Dataset"
