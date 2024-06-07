@@ -8,11 +8,18 @@
     <h1>Select Columns for {{ dataset_name }}</h1>
     <p class="description">{{ description }}</p>
     <form method="post">
-        <h2>Columns:</h2>
-        {% for column in columns %}
-        <input type="checkbox" id="{{ column }}" name="columns" value="{{ column }}">
-        <label for="{{ column }}">{{ column }}</label><br>
-        {% endfor %}
+        <h2>Columns to be included in the computation: </h2>
+        <div class="dropdown">
+            <button type="button" class="dropbtn">Select Columns</button>
+            <div class="dropdown-content">
+                {% for column in columns[:-1] %}
+                <div>
+                    <input type="checkbox" id="{{ column }}" name="columns" value="{{ column }}">
+                    <label for="{{ column }}">{{ column }}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
         <h2>Select Algorithm:</h2>
         <select name="algorithm">
             {% for key, value in algorithms.items() %}
@@ -21,5 +28,30 @@
         </select>
         <input type="submit" value="Submit">
     </form>
+
+    <script>
+        document.querySelector('.dropbtn').addEventListener('click', function(event) {
+            document.querySelector('.dropdown-content').classList.toggle('show');
+            event.stopPropagation();
+        });
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn') && !event.target.matches('input[type="checkbox"]') && !event.target.matches('label')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+        document.querySelectorAll('.dropdown-content input[type="checkbox"]').forEach(function(checkbox) {
+            checkbox.addEventListener('click', function(event) {
+                event.stopPropagation(); // Prevent the event from bubbling up to the window onclick handler
+            });
+        });
+    </script>
 </body>
 </html>

@@ -68,12 +68,23 @@ def dataset(dataset_name):
         return redirect(url_for('algorithm', dataset_name=dataset_name, algorithm_name=algorithm_name, columns=','.join(selected_columns)))
     return render_template('dataset.html', dataset_name=dataset_name, columns=dataset.columns, algorithms=algorithms, description=description)
 
-@app.route('/algorithm/<dataset_name>/<algorithm_name>/<columns>')
+@app.route('/algorithm/<dataset_name>/<algorithm_name>/<columns>', methods=['GET', 'POST'])
 def algorithm(dataset_name, algorithm_name, columns):
     dataset = datasets[dataset_name]
     selected_columns = columns.split(',')
     performance = get_model_performance(dataset_name, selected_columns, algorithm_name)
-    return render_template('algorithm.html', performance=performance, algorithm_name=algorithm_name)
+    if request.method == 'POST':
+        second_algorithm_name = request.form['second_algorithm']
+        second_performance = get_model_performance(dataset_name, selected_columns, second_algorithm_name)
+        comparison_data = {
+            'algorithm_1': algorithm_name,
+            'performance_1': performance,
+            'algorithm_2': second_algorithm_name,
+            'performance_2': second_performance
+        }
+        return render_template('compare.html', comparison_data=comparison_data, algorithms=algorithms)
+    return render_template('algorithm.html', performance=performance, algorithm_name=algorithm_name, columns=columns, algorithms=algorithms.keys())
+
 
 def get_model_performance(dataset, selected_columns, algorithm_name):
     print(selected_columns)

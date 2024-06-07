@@ -1,27 +1,49 @@
 /* General styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
     color: #333;
 }
 
-h1 {
+.container {
     text-align: center;
+    padding: 20px;
+}
+
+/* Equal width for both divs */
+.chart-container,
+.form-container {
+    display: inline-block;
+    width: 48%;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 1%;
+    vertical-align: top;
+}
+
+h1 {
     color: #444;
     margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 2em;
 }
 
 h2 {
-    color: #555;
+    color: #444;
+    margin-top: 20px;
+    font-size: 1.5em;
 }
 
 ul {
     list-style-type: none;
     padding: 0;
     margin: 0 auto;
-    max-width: 600px;
+    max-width: 800px;
 }
 
 li {
@@ -30,15 +52,18 @@ li {
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 a {
     text-decoration: none;
     color: #3498db;
+    font-size: 1.2em;
 }
 
 a:hover {
     text-decoration: underline;
+    color: #1d6fa5;
 }
 
 p {
@@ -47,11 +72,11 @@ p {
 
 /* Form styles */
 form {
-    max-width: 600px;
+    max-width: 800px;
     margin: 20px auto;
     padding: 20px;
     background: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
 
@@ -59,22 +84,27 @@ label {
     display: block;
     margin-top: 10px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 input[type="checkbox"] {
     margin-right: 10px;
+    width: 20px;
+    height: 20px;
 }
 
 input[type="submit"] {
     display: block;
     width: 100%;
-    padding: 10px;
+    padding: 15px;
     background: #3498db;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     margin-top: 20px;
+    font-size: 1em;
+    transition: background-color 0.3s;
 }
 
 input[type="submit"]:hover {
@@ -83,10 +113,59 @@ input[type="submit"]:hover {
 
 select {
     width: 100%;
-    padding: 10px;
+    padding: 15px;
     margin-top: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
+}
+
+/* Dropdown styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.dropbtn {
+    background-color: #3498db;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    transition: background-color 0.3s;
+}
+
+.dropbtn:hover {
+    background-color: #2980b9;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.dropdown-content div {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content div:hover {
+    background-color: #f1f1f1;
+}
+
+.show {
+    display: block;
 }
 
 /* Performance metrics */
@@ -107,6 +186,7 @@ select {
 
 .back-link:hover {
     text-decoration: underline;
+    color: #1d6fa5;
 }
 
 /* Additional styling for dataset descriptions */
