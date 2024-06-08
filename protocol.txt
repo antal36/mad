@@ -1,0 +1,133 @@
+Protocol from Project_name 
+
+Authors
+========
+- Tomáš Varga (varga224)
+- Tomáš Antal (antal36)
+
+
+Začiatok práce
+========
+- Brainstorming
+- Popresúvanie súborov a pripravenie pracovného prostredia. 
+
+Úprava datasetov
+========
+- Skript to_csv.py 
+    - Zmena jedného datasetu z .arf na .csv
+- Skript change.py
+    - Úprava názvov stĺpcov v jednotlivých datasetoch
+    - Refaktorizácia stringových premenných na intové 
+    - Upravenie datasetov tak, aby boli hodnotovo konzistentné.
+
+Vytvorenie algorithms.py
+========
+- Pridanie importov
+    - Import knižníc na ďalšiu prácu
+- Načítanie datasetov 
+    - Načítanie dát z .csv súborov
+- Definovanie datasetov a algoritmov
+    - Vytvorenie slovníka datasets 
+    - Definovanie zoznamu algoritmov, ktoré sa budú používať na hodnotenie.
+- Funkcia get_combination()
+    - Generuje všetky kombinácie stĺpcov daných datasetov
+- Funkcia evaluate_algorithm()
+    - hodnotenie daných algoritmov na všetkých datasetoch pre každú kombináciu stĺpcov 
+- Uloženie výsledkov do result.json súboru
+
+Vytvorenie app.py
+========
+- Pridanie importov
+    - Importovanie potrebných knižníc vrátane Flask, 
+      pandas, json a knižníc zo scikit-learn pre rôzne algoritmy.
+- Načítanie datasetov 
+    - Načítanie dát z .csv súborov
+    - Vytvorenie slovníka `datasets`
+- Vytvorenie Flask aplikácie
+- Vytvorenie zoznamu algoritmov
+- Príprava funkcií
+    - index()
+        - Zobrazenie hlavnej stránky s datasetmi
+    - dataset()
+        - Načítanie stĺpcov datasetu 
+        - Spracovanie POST požiadavky na výber stĺpcov a algoritmu
+    - algorithm()
+        - Zobrazenie výsledkov vybraného algoritmu pre daný dataset a stĺpec
+    - get_model_performance()
+        - Funkcia na vrátenie výkonu so špecifickými stĺpcami daného modelu zo súboru result.json 
+    - get_right_name_algo()
+        - Funkcia na mapovanie názvov algoritmov
+    - get_right_name_data()
+        - Funkcia na mapovanie názvov datasetov
+- Spustenie Flask aplikacie
+
+Vytvorenie styles.css
+========
+- Definícia výzoru prvkov .html
+
+Vytvorenie index.html
+========
+- Vytvorenie základnej štruktúry .html
+- Hlavička dokumentu
+    - Odkaz na externý .css súbor
+- Telo dokumentu
+    - Hlavný nadpis
+    - Zoznam datasetov
+- Dynamický obsah s Jinja
+    - iterácia cez datasety
+        - Vytvorenie položky 
+        - Vytvorenie odkazu
+        - Zobrazenie názvu datasetu 
+        - Zobrazenie popisu datasetu
+
+Vytvorenie dataset.html
+========
+- Vytvorenie základnej štruktúry .html
+- Hlavička dokumentu
+    - Odkaz na externý .css súbor
+- Formulár na výber stĺpcov a algoritmu
+    - Vytvorenie formulára 
+    - Vytvorenie dropdown menu pre výber stĺpcov
+    - Pridanie tlačidla Select Columns
+    - Použitie iterácie Jinja2 na zobrazenie všetkých stĺpcov (okrem posledného).
+      Pre každý stĺpec, vytvorenie checkboxu a príslušného popisu.
+    - Vytvorenie dropdown menu pre výber algoritmu
+      Použitie iterácie Jinja2 na zobrazenie všetkých algoritmov.
+    - Pridanie tlačidla Submit.
+- JavaScript pre dropdown menu
+    - Pridanie event listeneru pre tlačidlo dropdown ktorý zobrazuje/skryje obsah dropdown menu
+    - Pridanie event listeneru pre kliknutie na okno ktorý skryje dropdown menu ak sa klikne mimo neho
+    - Zabezpečenie že kliknutie na checkboxy neuzavrie dropdown menu.
+
+
+Vytvorenie algorithm.html
+========
+- Vytvorenie základnej štruktúry .html
+- Hlavička dokumentu
+    - Odkaz na externý .css súbor
+- JavaScript
+    - Vytvorenie piechart_3d grafu
+    - Definovanie možností grafu
+    - Vykreslenie grafu 
+- Telo dokumentu
+    - Nadpis stránky
+    - Pridanie popisu grafu
+    - Vytvorenie `<div>` pre graf
+    - Vytvorenie formulára na výber iného algoritmu na porovnanie
+- Pridanie odkazu na návrat na hlavnú stránku s datasetmi
+
+Vytvorenie compare.html
+========
+- Vytvorenie základnej štruktúry .html
+- Hlavička dokumentu
+    - Odkaz na externý .css súbor
+- JavaScript
+    - Vytvorenie barchart grafu
+    - Definovanie možností grafu
+    - Vykreslenie grafu 
+- Telo dokumentu
+    - Nadpis stránky
+    - Pridanie popisu grafu
+    - Vytvorenie `<div>` pre graf
+    - Vytvorenie formulára na výber iného algoritmu na porovnanie
+- Pridanie odkazu na návrat na hlavnú stránku s datasetmi
