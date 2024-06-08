@@ -11,21 +11,31 @@
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Metric', 'Percentage'],
-                ['Correctly Classified', {{ performance * 100 }}],
-                ['Incorrectly Classified', 100 - {{ performance * 100 }}]
+                ['Accuracy', {{ performance['accuracy'] * 100 }}],
+                ['Precision', {{ performance['precision'] * 100 }}],
+                ['Recall', {{ performance['recall'] * 100 }}],
+                ['F1 Score', {{ performance['f1_score'] * 100 }}],
+                ['ROC AUC', {{ performance['roc_auc'] * 100 }}]
             ]);
 
             var options = {
-                title: 'Performance of {{ algorithm_name }}',
-                is3D: true,
-                pieSliceText: 'percentage',
-                slices: {
-                    0: { color: '#4285F4' },
-                    1: { color: '#DB4437' }
-                }
+                title: 'Performance Metrics of {{ algorithm_name }}',
+                hAxis: {
+                    title: 'Metrics',
+                    minValue: 0
+                },
+                vAxis: {
+                    title: 'Percentage',
+                    minValue: 0,
+                    maxValue: 100
+                },
+                legend: 'none',
+                bar: { groupWidth: '75%' },
+                colors: ['#4285F4'],
+                chartArea: { width: '70%' }
             };
 
-            var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+            var chart = new google.visualization.BarChart(document.getElementById('barchart_values'));
             chart.draw(data, options);
         }
     </script>
@@ -33,9 +43,9 @@
 <body>
     <div class="container">
         <h1>Performance of {{ algorithm_name }}</h1>
-        <p class="description">This chart illustrates the performance of the {{ algorithm_name }} algorithm on the selected dataset. It shows the proportion of correctly and incorrectly classified instances, providing insight into the model's accuracy. The blue section represents the correctly classified instances, while the red section represents the incorrectly classified instances.</p>
+        <p class="description">This bar chart illustrates the performance of the {{ algorithm_name }} algorithm on the selected dataset across various metrics.</p>
         <div class="chart-container">
-            <div id="piechart_3d" style="width: 700px; height: 500px;"></div>
+            <div id="barchart_values" style="width: 100%; height: 500px;"></div>
         </div>
         <form method="post">
             <h2>Select Another Algorithm to Compare:</h2>

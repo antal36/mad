@@ -10,22 +10,28 @@
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Algorithm', 'Performance'],
-                ['{{ comparison_data.algorithm_1 }}', {{ comparison_data.performance_1 * 100 }}],
-                ['{{ comparison_data.algorithm_2 }}', {{ comparison_data.performance_2 * 100 }}]
+                ['Metric', '{{ comparison_data.algorithm_1 }}', '{{ comparison_data.algorithm_2 }}'],
+                ['Accuracy', {{ comparison_data.performance_1['accuracy'] * 100 }}, {{ comparison_data.performance_2['accuracy'] * 100 }}],
+                ['Precision', {{ comparison_data.performance_1['precision'] * 100 }}, {{ comparison_data.performance_2['precision'] * 100 }}],
+                ['Recall', {{ comparison_data.performance_1['recall'] * 100 }}, {{ comparison_data.performance_2['recall'] * 100 }}],
+                ['F1 Score', {{ comparison_data.performance_1['f1_score'] * 100 }}, {{ comparison_data.performance_2['f1_score'] * 100 }}],
+                ['ROC AUC', {{ comparison_data.performance_1['roc_auc'] * 100 }}, {{ comparison_data.performance_2['roc_auc'] * 100 }}]
             ]);
 
             var options = {
+                title: 'Comparison of {{ comparison_data.algorithm_1 }} and {{ comparison_data.algorithm_2 }}',
                 hAxis: {
-                    title: 'Algorithms being compared',
+                    title: 'Metrics',
                     minValue: 0
                 },
                 vAxis: {
-                    title: 'Performance [ % ]',
+                    title: 'Performance (%)',
                     minValue: 0,
                     maxValue: 100
                 },
-                legend: 'none'
+                legend: { position: 'top', maxLines: 2 },
+                bar: { groupWidth: '75%' },
+                isStacked: true
             };
 
             var chart = new google.visualization.ColumnChart(document.getElementById('barchart_values'));
