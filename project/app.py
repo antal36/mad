@@ -28,14 +28,14 @@ datasets: Dict[str, Dict[str, Any]] = {
         The gender column is normalized, with males set to 1 and females to 0. The blood sugar (glucose) column is set to 1 if the level is greater than 120, otherwise, it is set to 0. The classification output is set to 1 for positive (heart attack) and 0 for negative (no heart attack)."""
     },
     "Diabetes (America)": {
-        "data": pd.read_csv("data/dataset_37_diabetes_final.csv"),
-        "description": """The source of the data http://biostat.mc.vanderbilt.edu/wiki/Main/DataSets.\n 
+        "data": pd.read_csv("data/diabetes_classification_final.csv"),
+        "description": """The source of the data https://data.world/informatics-edu/diabetes-prediction \n 
         This dataset includes several hundred rural African-American patients. Patients without a hemoglobin A1c measurement were excluded.
         Those with a hemoglobin A1c of 6.5 or greater were labeled as diabetic (diabetes = yes). Out of 390 patients, 60 were found to be diabetic."""
     },
     "Diabetes (Pima Indians)": {
-        "data": pd.read_csv("data/diabetes_classification_final.csv"),
-        "description": """The source of the data: https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database \n
+        "data": pd.read_csv("data/dataset_37_diabetes_final.csv"),
+        "description": """The source of the data: https://data.world/uci/pima-indians-diabetes \n
         This dataset is originally from the National Institute of Diabetes and Digestive and Kidney Diseases.
         The objective of the dataset is to diagnostically predict whether a patient has diabetes based on certain diagnostic measurements.
         All patients are females at least 21 years old of Pima Indian heritage. The dataset consists of several medical predictor variables and one target variable, Outcome.
