@@ -74,8 +74,10 @@ def evaluate_algorithm(algorithm) -> None:
                 "roc_auc": roc_auc
             }
 
+algorithm: BaseEstimator
 for algorithm in algorithms:
     evaluate_algorithm(algorithm)
+"""Evaluate each algorithm"""
 
 json_object = js.dumps(result, indent=4)
 with open("results.json", "w") as outfile:

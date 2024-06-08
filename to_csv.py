@@ -1,4 +1,5 @@
-def getCSVFromArff(fileName):
+def getCSVFromArff(fileName: str) -> None:
+	"""Converts ARFF file into CSV file"""
 	with open(fileName + '.arff', 'r') as fin:
 		data = fin.read().splitlines(True)
 	i: int = 0
