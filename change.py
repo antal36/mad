@@ -17,3 +17,5 @@ df4 = pd.read_csv("C:/Users/antal/Desktop/matfyz/MAD/mad/informatics-edu-diabete
 df4.drop('patient_number', axis="columns", inplace=True)
 df4["diabetes"] = df4["diabetes"].map({"Diabetes":1, "No diabetes":0})
 df4.to_csv("C:/Users/antal/Desktop/matfyz/MAD/mad/informatics-edu-diabetes-prediction/informatics-edu-diabetes-prediction/data/diabetes_classification_final.csv", index=False)
+
+"""Original files were deleted after the changes were applied to them, so this code would not run now."""

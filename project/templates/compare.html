@@ -19,7 +19,6 @@
             ]);
 
             var options = {
-                title: 'Comparison of {{ comparison_data.algorithm_1 }} and {{ comparison_data.algorithm_2 }}',
                 hAxis: {
                     title: 'Metrics',
                     minValue: 0
@@ -44,7 +43,7 @@
         <h1>Comparison of {{ comparison_data.algorithm_1 }} and {{ comparison_data.algorithm_2 }}</h1>
         <p class="description">This chart illustrates the performance comparison between {{ comparison_data.algorithm_1 }} and {{ comparison_data.algorithm_2 }} algorithms on the selected dataset.</p>
         <div class="chart-container">
-            <div id="barchart_values" style="width: 700px; height: 500px;"></div>
+            <div id="barchart_values" style="width: 100%; height: 500px;"></div>
         </div>
         <a href="{{ url_for('index') }}" class="back-link">Back to datasets</a>
     </div>

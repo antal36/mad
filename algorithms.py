@@ -30,6 +30,7 @@ result: Dict[str, Dict[str, Dict[str, float]]] = {}
 
 def get_combination(columns: List[str]) -> Iterator[Tuple[str]]:
     """Yields all possible combinations of columns"""
+
     combination: List[Tuple[str]] = []
     for r in range(1, len(columns) + 1):
         combination.extend(itertools.combinations(columns, r))
@@ -38,6 +39,7 @@ def get_combination(columns: List[str]) -> Iterator[Tuple[str]]:
 def evaluate_algorithm(algorithm) -> None:
     """Evaluate the specified machine learning algorithm on each dataset using all possible combinations of features.
        Evaluation metrics: Accuracy score, Precision score, Recall score, F1 score, ROC AUC"""
+    
     algorithm_name = algorithm.__name__
     result[algorithm_name] = {}
     
@@ -84,5 +86,3 @@ with open("results.json", "w") as outfile:
     outfile.write(json_object)
 """The result dictionary is written into JSON file"""
 
-
-print("Done")
