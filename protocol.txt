@@ -1,23 +1,54 @@
-Protocol from Project_name 
+Protokol pre semestrálny projekt
 
 Authors
 ========
 - Tomáš Varga (varga224)
 - Tomáš Antal (antal36)
 
+Zdroje dát
+========
+- https://data.mendeley.com/datasets/dzz48mvjht/1
+- https://data.mendeley.com/datasets/wmhctcrt5v/1
+- https://data.world/informatics-edu/diabetes-prediction
+- https://data.world/uci/pima-indians-diabetes 
 
 Začiatok práce
 ========
 - Brainstorming
-- Popresúvanie súborov a pripravenie pracovného prostredia. 
+- Popresúvanie folderov so súbormi a pripravenie pracovného prostredia. 
 
 Úprava datasetov
 ========
 - Skript to_csv.py 
     - Zmena jedného datasetu z .arf na .csv
+	- Funkcia getCSVFromArf() prijím argument ktorý predstavuje názov súboru
+  	- Otvorenie .arff súboru na čítanie
+	- Načítanie všetkých riadkov súboru a ich následné uloženie
+	- Inicializácia premenných
+	- Spracovanie riadkov súboru
+        - Prechádzanie jednotlivých riadkov zoznamu
+        - Prevedenia riadkov na malé písmená
+        - Ak riadok obsahuje '@data' znamená to že sme dosiahli začiatok časti dát
+        - Ak riadok začína '@attribute', extrahuje sa názov atribútu:
+        - Názvy atribútov sa pridávajú do zoznamu `cols`
+    - Vytvorenie hlavičky .csv súboru
+        - Zoznam názvov stĺpcov `cols` sa spojí do jedného reťazca `headers` kde sú názvy oddelené čiarkami.
+    - Zápis do .csv súboru
+        - Otvorenie nového .csv súbor na zápis pomocou open
+        - Názov súboru je zložený z argumentu funkcie a prípony '.csv'
+        - Zapísanie hlavičky do .csv súboru
+        - Načítanie a zápis všetkých riadkov dát
+    - Kontrola správneho prepisu
+
 - Skript change.py
+    - Importovanie knižnice pandas na čítanie .csv súborov
+    - Načítanie súborov
     - Úprava názvov stĺpcov v jednotlivých datasetoch
+        - Odstraňovanie medzier; Štylistická úprava
     - Refaktorizácia stringových premenných na intové 
+        - "positiv" na 1; "negative" na 0
+        - "male" na 1; "female" na 0
+        - ....
     - Upravenie datasetov tak, aby boli hodnotovo konzistentné.
 
 Vytvorenie algorithms.py
@@ -32,13 +63,14 @@ Vytvorenie algorithms.py
 - Funkcia get_combination()
     - Generuje všetky kombinácie stĺpcov daných datasetov
 - Funkcia evaluate_algorithm()
-    - hodnotenie daných algoritmov na všetkých datasetoch pre každú kombináciu stĺpcov 
+    - Hodnotenie daných algoritmov na všetkých datasetoch pre každú kombináciu stĺpcov 
+    - Vyrátavanie "accuracy", "precision", .... 
 - Uloženie výsledkov do result.json súboru
 
 Vytvorenie app.py
 ========
 - Pridanie importov
-    - Importovanie potrebných knižníc vrátane Flask, 
+    - Importovanie potrených knižníc vrátane Flask, 
       pandas, json a knižníc zo scikit-learn pre rôzne algoritmy.
 - Načítanie datasetov 
     - Načítanie dát z .csv súborov
@@ -59,7 +91,7 @@ Vytvorenie app.py
         - Funkcia na mapovanie názvov algoritmov
     - get_right_name_data()
         - Funkcia na mapovanie názvov datasetov
-- Spustenie Flask aplikacie
+- Spustenie Flask aplikácie
 
 Vytvorenie styles.css
 ========
@@ -131,3 +163,12 @@ Vytvorenie compare.html
     - Vytvorenie `<div>` pre graf
     - Vytvorenie formulára na výber iného algoritmu na porovnanie
 - Pridanie odkazu na návrat na hlavnú stránku s datasetmi
+
+Zdroje
+========
+https://scikit-learn.org/stable/
+https://developers.google.com/chart/interactive/docs/gallery
+https://flask.palletsprojects.com/en/3.0.x/
+https://jinja.palletsprojects.com/en/3.1.x/
+https://www.w3schools.com/html/default.asp
+https://www.w3schools.com/css/default.asp

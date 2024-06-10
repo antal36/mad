@@ -1,7 +1,7 @@
 def getCSVFromArff(fileName: str) -> None:
 	"""Converts ARFF file into CSV file"""
-	with open(fileName + '.arff', 'r') as fin:
-		data = fin.read().splitlines(True)
+	with open(fileName + '.arff', 'r') as file:
+		data = file.read().splitlines(True)
 	i: int = 0
 	cols: list = []
 	for line in data:
@@ -22,4 +22,6 @@ def getCSVFromArff(fileName: str) -> None:
 		fout.write('\n')
 		fout.writelines(data[i:])
 
-getCSVFromArff("C:/Users/antal/Desktop/matfyz/MAD/mad/dataset_37_diabetes")
+getCSVFromArff("./dataset_37_diabetes")
+
+"""This file has also been removed, non-functioning call of the function because of the path."""
